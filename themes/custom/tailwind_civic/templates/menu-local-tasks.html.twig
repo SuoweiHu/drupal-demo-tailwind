@@ -1,0 +1,40 @@
+{% if links.primary %}
+    <div class="container py-8 my-8">
+        <div class="sm:hidden">
+            <label for="tabs" class="sr-only">Select a tab</label>
+            <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
+            <select id="tabs" name="tabs" class="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500">
+            <option>My Account</option>
+            <option>Company</option>
+            <option selected>Team Members</option>
+            <option>Billing</option>
+            </select>
+        </div>
+        <div class="hidden sm:block">
+            <nav class="flex space-x-4" aria-label="Tabs">
+                {% for link in links.primary%}
+                    {% if "selected" in link.modifier_class %}    <a href="{{link.url}}" class="rounded-md bg-gray-100 px-3 py-2 text-sm font-medium text-blue-700" aria-current="{{link.text}}">{{link.text}}</a>
+                    {% else %}                                    <a href="{{link.url}}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-700">{{link.text}}</a>
+                    {% endif %}
+                {% endfor %}
+            </nav>
+        </div>
+    </div>
+{% endif %}
+
+{# {% if links.primary %} #}
+    {# <h2 class="ct-visually-hidden">{{ 'Primary tabs'|t }}</h2> #}
+    {# {% include '@molecules/tabs/tabs.twig' with {
+      links: links.primary,
+      vertical_spacing: 'top',
+      modifier_class: 'ct-tabs--local-tasks ct-tabs--local-tasks--primary',
+    } %} #}
+{# {% endif %} #}
+
+{% if links.secondary %}
+  <h2 class="ct-visually-hidden">{{ 'Secondary tabs'|t }}</h2>
+  {% include '@molecules/tabs/tabs.twig' with {
+    links: links.secondary,
+    modifier_class: 'ct-tabs--local-tasks ct-tabs--local-tasks--secondary',
+  } %}
+{% endif %}
